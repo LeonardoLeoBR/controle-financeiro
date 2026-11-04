@@ -547,7 +547,7 @@
     if (R.faltasCenario.length) { add(info, el('span', { class: 'ausente' }, '⚠ falta ' + R.faltasCenario.join(', '))); return; }
     var meses = R.dc / 30.4375;
     add(info, R.dc + ' dias ≈ ' + nf(meses, 1) + ' meses · resgate em ' + dataBR(R.dataResgate) + ' (' + DIAS_SEMANA[diaSemana(R.dataResgate)] + ') · ' +
-      R.du + ' dias úteis · IR ' + pct(R.aliqIR, 1) + (R.aliqIR !== R.aliqRegra ? ' (editado)' : '') + ' nos tributados' + (R.aliqIOF > 0 ? ' · IOF ' + pct(R.aliqIOF, 0) : '') +
+      R.du + ' dias úteis · IR ' + pct(R.aliqIR, 1) + (R.aliqIR !== R.aliqRegra ? ' (editado)' : '') + ' nos tributados' + (R.aliqIOF > 0 ? ' · IOF ' + pct(R.aliqIOF, 0) + ' onde incide' : '') +
       (R.fluxos.length > 1 ? ' · ' + (R.fluxos.length - 1) + ' aportes mensais' : ''));
   }
   function campo(id, rotulo, valor, ph, trava, onInput, numero) {
@@ -873,7 +873,7 @@
       if (R.fluxos.length > 1) detLinha(dre, '(+) Aportes mensais acumulados', reais(x.aportesMensais));
       detLinha(dre, '(=) Capital investido', reais(x.capital), null, 'subtotal');
       detLinha(dre, '(+) Rendimento bruto', reais(r.rendBruto));
-      detLinha(dre, '(−) IOF', neg(r.iof), x.p.tipo === 'POUPANCA' ? 'não tem' : (x.aliqIOFMax > 0 ? pct(x.aliqIOFMax, 0) : '0% (≥ 30 dias)'));
+      detLinha(dre, '(−) IOF', neg(r.iof), !M.temIOF(x.p.tipo) ? 'alíquota zero' : (x.aliqIOFMax > 0 ? pct(x.aliqIOFMax, 0) : '0% (≥ 30 dias)'));
       detLinha(dre, '(−) IR', neg(r.ir), tIR);
       if (ehFundo(x.p.tipo)) detLinha(dre, '(−) Taxa de administração / custódia', '—', 'embutida na cota');
       else detLinha(dre, '(−) Taxa de administração / custódia', neg(r.custos || 0));

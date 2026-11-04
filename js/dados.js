@@ -21,7 +21,7 @@
 (function (root) {
   'use strict';
 
-  var VERSAO_SITE = '0.12.1';
+  var VERSAO_SITE = '0.12.2';
   var VERSAO_ESQUEMA = 1;
   var PREFIXO = 'cf1:';
   var CHAVES_USUARIO = ['config', 'cenarios', 'carteira', 'proventos', 'radar'];

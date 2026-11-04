@@ -12,6 +12,7 @@
  *   lançamento. Casos O32–O52.
  * v2.3.0 (03/11/2026, F4): IRRF estimado (0,005% e 1%) ou da nota, saldo de IRRF por categoria até dezembro, mês que depende de
  *   mês incompleto, imposto arredondado por categoria, vencimento pela lista de feriados, painel do DARF e "já paguei". Casos IR1–IR27.
+ * v2.4.2 (03/11/2026, revisão externa): units sem a isenção de R$ 20 mil e fora da soma do limite (Lei 11.033/2004, art. 3º, I).
  * v2.4.1 (03/11/2026, revisão independente): preço médio desconhecido bloqueia também venda de opção, vencimento e exercício; grafia da corretora não separa day trade nem a soma do IRRF; soma do DARF acumulado arredondada.
  * v2.4.0 (03/11/2026, F5): proventos confirmados, aluguel (doador), rendimentos por mês e por tipo, alerta de R$ 50 mil por empresa,
  *   proventos estimados pelo histórico e posição na data-com. Casos R1–R27 em claude/f5-casos-rendimentos.md.
@@ -52,7 +53,7 @@
  * Venda maior que a posição (exceto opção): posição vai a zero, a operação NÃO é calculada e vira pendência; o mês
  *   fica incompleto. Opção vendida sem posição é lançamento (posição vendida), permitido.
  *
- * Classes: ACAO, UNIT (tratada como ação, inclusive na isenção: premissa declarada), ETF, BDR, FII, FIAGRO (regras do FII:
+ * Classes: ACAO, UNIT (15%, sem a isenção de R$ 20 mil), ETF, BDR, FII, FIAGRO (regras do FII:
  *   premissa), OPCAO, DIREITO (venda nunca isenta: SC COSIT 166/2021), FIINFRA e ETF_RF (regra própria: fora do cálculo).
  *   Tickers terminados em 11 (unit, ETF, FII, Fiagro…) são classificados pelo usuário, uma vez por ativo (decisão 36); sem isso,
  *   pendência. `listaB3` continua aceito (lista { TICKER: CLASSE } fornecida por quem chama), mas o site passa lista vazia.
@@ -60,7 +61,7 @@
  * Config: { volumeForaIsencaoContaNoLimite:true, prejuizoMesIsentoCompensa:true } (ver skill).
  *
  * IRRF (opcoes.estimarIrrf = true; opcoes.irrfInformado = { 'AAAA-MM': { COMUM, DAYTRADE, FII } } = valor da nota, que substitui a estimativa):
- *   0,005% sobre as vendas à vista e sobre o saldo positivo dos prêmios de cada dia (IN 1.585, art. 63, IV e § 8º), fora o day trade; por corretora,
+ *   0,005% sobre as vendas à vista e sobre o saldo positivo dos prêmios de cada dia (Lei 11.033/2004, art. 2º, § 1º, II e IV), fora o day trade; por corretora,
  *   somando o mês, sem retenção quando a soma dá até R$ 1,00 (P&R 706). Venda por exercício fora da base (premissa conservadora; a nota corrige).
  *   1% sobre o resultado positivo do day trade do dia, por corretora (art. 65, § 1º, II). Sem a opção, só o `irrf`/`irrfDT` do negócio conta.
  *   Saldo não usado: nos meses seguintes, por categoria, até dezembro do mesmo ano; o que sobra vai para a declaração (art. 63, § 8º; art. 65, § 8º; P&R 714 e 715).
@@ -68,7 +69,7 @@
 (function (root) {
   'use strict';
 
-  var VERSAO = '2.4.1';
+  var VERSAO = '2.4.2';
   var CAT = { COMUM: 'COMUM', DT: 'DAYTRADE', FII: 'FII', FORA: 'FORA' };
   var ALIQ = { COMUM: 0.15, DAYTRADE: 0.20, FII: 0.20 };
   var LIMITE_ISENCAO = 20000;
@@ -82,7 +83,7 @@
 
   function mes(d) { return String(d).slice(0, 7); }
   function r2(x) { return x == null ? null : Math.round((x + (x >= 0 ? EPS : -EPS)) * 100) / 100; }
-  function ehAcaoIsenta(classe) { return classe === 'ACAO' || classe === 'UNIT'; }
+  function ehAcaoIsenta(classe) { return classe === 'ACAO'; }   // a isenção é do mercado à vista de ações; unit é certificado de depósito (Lei 11.033/2004, art. 3º, I)
 
   /* ---------- classificação ---------- */
   function normalizarTicker(t) {
@@ -322,7 +323,7 @@
       lotes.forEach(function (x) {
         if (x.resto <= EPS) return;
         var q = x.resto, o = x.o;
-        if (classe === 'OPCAO') {   // saldo dos prêmios do dia, fora o day trade (IN 1.585, art. 63, § 8º)
+        if (classe === 'OPCAO') {   // saldo dos prêmios do dia, fora o day trade (Lei 11.033/2004, art. 2º, § 1º, II)
           var kPr = o.data + '\n' + chaveCorretora(o.corretora);
           premiosDia[kPr] = (premiosDia[kPr] || 0) + (o.lado === 'V' ? q * o.preco : -q * o.preco);
         } else if (o.lado === 'V') somarBase(m, chaveCorretora(o.corretora), categoria(classe, false), q * o.preco);

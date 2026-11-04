@@ -10,6 +10,7 @@
  *  - du entre datas: conta a data inicial, exclui a final (convenção ANBIMA).
  *  - Qualquer parâmetro ausente vira aviso em `avisos` e a linha não é calculada.
  *
+ * v1.1.2 (03/11/2026, revisão externa): IOF zero para LCA, CRA, CRI e debêntures (Decreto 6.306/2007, art. 32, § 2º, V e VI).
  * v1.1.0 (F1, 30/10/2026): indexador CDI_MAIS (CDI + spread), custódia obrigatória no Tesouro,
  *  spread obrigatório no Tesouro Selic, opções de premissa editada (du, alíquota de IR) em simularAporte/simular e cdiEquilibrio().
  */
@@ -20,7 +21,9 @@
     46, 43, 40, 36, 33, 30, 26, 23, 20, 16, 13, 10, 6, 3, 0];
 
   var ISENTOS_IR = ['LCI', 'LCA', 'CRI', 'CRA', 'DEB_INCENTIVADA', 'LCD', 'POUPANCA'];
-  var COM_IOF = function (tipo) { return tipo !== 'POUPANCA'; };
+  // Alíquota zero de IOF: LCA e CRA (Decreto 6.306/2007, art. 32, § 2º, V); CRI e debêntures (§ 2º, VI). Poupança não tem. LCI, LCD, CDB e Tesouro seguem a tabela.
+  var SEM_IOF = ['POUPANCA', 'LCA', 'CRA', 'CRI', 'DEB', 'DEB_INCENTIVADA'];
+  var COM_IOF = function (tipo) { return SEM_IOF.indexOf(tipo) < 0; };
 
   function toDate(d) {
     if (d instanceof Date) return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
@@ -332,10 +335,10 @@
   }
 
   var API = {
-    versao: '1.1.1',
+    versao: '1.1.2',
     versaoRegras: '2026-10-29',
     diasCorridos: diasCorridos, diasUteis: diasUteis, aliquotaIR: aliquotaIR,
-    aliquotaIOF: aliquotaIOF, fatorCDI: fatorCDI, fatorPre: fatorPre, fatorIPCA: fatorIPCA,
+    aliquotaIOF: aliquotaIOF, temIOF: COM_IOF, fatorCDI: fatorCDI, fatorPre: fatorPre, fatorIPCA: fatorIPCA,
     grossUp: grossUp, datasComeCotas: datasComeCotas, simularAporte: simularAporte,
     simular: simular, vpl: vpl, tir: tir, retornoReal: retornoReal, anualizar: anualizar,
     pctCDIEquivalente: pctCDIEquivalente, cdiEquilibrio: cdiEquilibrio, ISENTOS_IR: ISENTOS_IR

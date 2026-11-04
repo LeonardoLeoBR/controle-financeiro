@@ -313,7 +313,7 @@
       d.appendChild(tabelaCategorias(a));
       a.avisos.forEach(function (t) { d.appendChild(el('p', { class: 'aviso' }, t)); });
       if (a.darfAcumuladoAnterior) d.appendChild(el('p', { class: 'ir-frase' }, 'Inclui ' + reais(a.darfAcumuladoAnterior) + ' acumulados de meses abaixo de R$ 10.'));
-      if (a.irrfParaDeclaracao) d.appendChild(el('p', { class: 'ir-frase' }, 'Saldo de IRRF não usado até o fim do ano: ' + reais((a.irrfParaDeclaracao.COMUM || 0) + (a.irrfParaDeclaracao.DAYTRADE || 0) + (a.irrfParaDeclaracao.FII || 0)) + '. Não passa para janeiro: informe na declaração.'));
+      if (a.irrfParaDeclaracao) d.appendChild(el('p', { class: 'ir-frase' }, 'Saldo de IRRF não usado até o fim do ano: ' + reais((a.irrfParaDeclaracao.COMUM || 0) + (a.irrfParaDeclaracao.DAYTRADE || 0) + (a.irrfParaDeclaracao.FII || 0)) + '. Não passa para janeiro. Comum e FII: informe na declaração.' + (a.irrfParaDeclaracao.DAYTRADE ? ' Day trade (' + reais(a.irrfParaDeclaracao.DAYTRADE) + '): confira na pergunta 715 do Perguntas e Respostas IRPF como pedir a restituição.' : '')));
       d.appendChild(blocoIrrf(x));
     }
     if (x.situacao === 'ACUMULA') d.appendChild(el('p', { class: 'ir-frase' }, 'Abaixo de R$ 10,00 não se emite DARF: ' + reais(x.acumulaParaProximo) + ' somam ao próximo mês com imposto.'));
@@ -725,7 +725,7 @@
       'Venda maior que a posição não é calculada: falta algum lançamento (saldo inicial, compra ou evento), e ele mudaria o preço médio.',
       'Eventos da empresa entram na data ex (primeiro dia sem direito), antes dos negócios do dia. Bonificação usa o custo atribuído informado pela empresa (art. 58, § 1º). Fração de grupamento, bonificação ou incorporação espera o valor do leilão; o leilão é tratado como venda à vista (premissa).',
       'Direito de subscrição recebido tem custo zero; a venda é tributada sem a isenção de R$ 20 mil (Solução de Consulta Cosit 166/2021). Incorporação transfere o custo sem apurar resultado, com aviso de possível ganho de capital.',
-      'Units contam como ação (inclusive na isenção): premissa declarada. FII e Fiagro: 20%. FI-Infra e ETF de renda fixa têm tributação própria e ficam fora do cálculo.',
+      'Units pagam 15% (20% no day trade), sem a isenção de R$ 20 mil, que a lei dá só a ações, e a venda delas não entra na soma desse limite (Lei 11.033/2004, art. 3º, I). FII e Fiagro: 20%. FI-Infra e ETF de renda fixa têm tributação própria e ficam fora do cálculo.',
       'Opções: o resultado sai quando a posição fecha (venda do que foi comprado, recompra do que foi vendido), pelo prêmio médio com custos; 15% (20% no day trade), sem a isenção de R$ 20 mil. Opção que vira pó: perda do titular ou ganho do lançador na data do vencimento (IN RFB 1.585/2015, art. 60; Perguntas e Respostas IRPF 724 a 727).',
       'Exercício: titular de call compra as ações a strike + prêmio; lançador de call vende a strike + prêmio; titular de put vende a strike − prêmio; lançador de put compra a strike − prêmio. O lucro da venda de ações por exercício nunca é isento. Exercício parcial: informe a quantidade exercida.',
       'Ordem no dia: exercício que entrega ações (titular de call, lançador de put) entra antes dos negócios; vencimento e exercício que retira ações (lançador de call, titular de put) entram depois. Exercício não é day trade (IN RFB 1.585/2015, art. 65, § 13).',

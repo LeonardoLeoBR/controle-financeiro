@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self' https://api.bcb.gov.br https://olinda.bcb.gov.br; base-uri 'none'; form-action 'none'; object-src 'none'; require-trusted-types-for 'script'; trusted-types 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head><body>
+<title>Controle Financeiro</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="css/site.css">
+
+<header class="topo">
+  <div class="topo-marca gutter"><div class="wrap barra">
+      <div class="marca"><svg class="marca-icone" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="8" stroke="currentColor" stroke-width="2"/><path d="M8 21l5-5 4 3 7-8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.5 11H24v4.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Controle Financeiro</span> <span id="chip-amb" class="chip">…</span></div>
+      <button id="btn-atualizar" class="btn prim" type="button" title="Atualizar dados de mercado">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>
+        <span>Atualizar</span>
+      </button>
+      <button id="btn-travar" class="btn" type="button" hidden title="Travar o site agora (pede a senha de novo)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <span>Travar</span>
+      </button>
+      <button id="btn-dados" class="btn" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+        <span>Dados<span class="txt-longo"> e backup</span></span>
+      </button>
+  </div></div>
+  <div class="topo-nav gutter"><div class="wrap">
+    <nav class="abas topo-abas" aria-label="Módulos"></nav>
+  </div></div>
+</header>
+
+<main class="gutter"><div class="wrap">
+  <div id="aviso-seguranca" class="aviso alerta-seg" role="alert" hidden></div>
+  <div id="aviso-trava" class="aviso" role="status" hidden></div>
+  <div id="ilegivel-box" class="aviso alerta-seg" role="alert" hidden></div>
+  <div id="aviso-mercado" class="aviso" role="status" hidden></div>
+
+  <section class="modulo" id="m-comparar" data-rota="comparar">
+    <p class="pergunta">Comparar renda fixa</p>
+    <h1>Qual aplicação deixa mais dinheiro líquido no prazo que eu escolher?</h1>
+    <p class="sub">Até 3 produtos no mesmo valor, data e prazo, já descontados IR, IOF e custos. Cada comparação é um cenário com nome, que você salva e reabre.</p>
+
+    <div id="comparador">
+      <div class="cmp-barra" role="toolbar" aria-label="Cenários">
+        <label for="cmp-sel">Cenário</label>
+        <select id="cmp-sel"></select>
+        <button class="btn prim" type="button" id="cmp-novo">Novo</button>
+        <button class="btn" type="button" id="cmp-duplicar">Duplicar</button>
+        <button class="btn" type="button" id="cmp-renomear">Renomear</button>
+        <button class="btn" type="button" id="cmp-excluir">Excluir</button>
+        <span class="sep"></span>
+        <button class="btn" type="button" id="cmp-comparar" aria-pressed="false">Comparar cenários</button>
+        <button class="btn" type="button" id="cmp-exemplo">Carregar exemplo</button>
+        <button class="btn" type="button" id="cmp-ref">Cenário de referência</button>
+      </div>
+      <p id="cmp-status" class="status" role="status" aria-live="polite"></p>
+      <div id="cmp-acao" hidden></div>
+      <div id="cmp-banner" class="faixa" hidden></div>
+
+      <div id="cmp-vazio" class="vazio" hidden>
+        <p><strong>Você ainda não tem cenários.</strong> Crie um com seus produtos, ou veja como funciona com o exemplo (dados fictícios, não se misturam aos seus).</p>
+        <div class="acoes"><button class="btn prim" type="button" id="cmp-vazio-novo">Novo cenário</button><button class="btn" type="button" id="cmp-vazio-exemplo">Carregar exemplo</button></div>
+      </div>
+
+      <div id="cmp-corpo" hidden>
+        <div id="cmp-param" class="painel-cen"></div>
+        <div id="cmp-veredito" class="veredito" role="status" aria-live="polite"></div>
+        <div id="cmp-conferencia" class="conferencia" hidden></div>
+        <div id="cmp-tabela" class="produtos" role="region" aria-label="Produtos comparados"></div>
+        <div id="cmp-add-wrap" hidden></div>
+        <details class="dobra" id="cmp-prem-det">
+          <summary>Premissas <span id="cmp-prem-resumo" class="resumo-prem"></span></summary>
+          <div class="conteudo" id="cmp-premissas"></div>
+        </details>
+        <details class="dobra">
+          <summary>Memória de cálculo</summary>
+          <div class="conteudo" id="cmp-memoria"></div>
+        </details>
+      </div>
+      <div id="cmp-comparacao" hidden></div>
+    </div>
+  </section>
+
+  <section class="modulo" id="m-carteira" data-rota="carteira" hidden>
+    <p class="pergunta">Carteira &amp; IR</p>
+    <h1>O que eu tenho, quanto ganhei e quanto devo de imposto?</h1>
+    <p class="sub">Parte do saldo inicial (posição e preço médio na data de início). Cada compra, venda, opção e evento da empresa entra em ordem de data; o preço médio é refeito do começo a cada mudança. O imposto de cada mês aparece logo depois das pendências, com o DARF pronto para emitir no Sicalc.</p>
+
+    <div id="carteira">
+      <div class="cmp-barra" role="toolbar" aria-label="Carteira">
+        <button class="btn prim" type="button" id="cart-novo-neg">+ Compra ou venda</button>
+        <button class="btn" type="button" id="cart-novo-opcao">+ Opção</button>
+        <button class="btn" type="button" id="cart-novo-saldo">+ Saldo inicial</button>
+        <button class="btn" type="button" id="cart-novo-evento">+ Evento da empresa</button>
+        <span class="sep"></span>
+        <button class="btn" type="button" id="cart-exemplo">Carregar exemplo</button>
+      </div>
+      <p id="cart-status" class="status" role="status" aria-live="polite"></p>
+      <div id="cart-backup" class="aviso" role="status" hidden></div>
+      <div id="cart-banner" class="faixa exemplo" hidden></div>
+      <div id="cart-form" class="painel-cen" hidden></div>
+
+      <div id="cart-vazio" class="vazio" hidden>
+        <p><strong>Sua carteira ainda está vazia.</strong> Comece pelo saldo inicial de cada ativo (quantidade e preço médio na data de início) e depois lance as compras, vendas e eventos. Ou veja como funciona com o exemplo (dados fictícios, não se misturam aos seus).</p>
+        <div class="acoes"><button class="btn prim" type="button" id="cart-vazio-saldo">Lançar saldo inicial</button><button class="btn" type="button" id="cart-vazio-exemplo">Carregar exemplo</button></div>
+      </div>
+
+      <div id="cart-corpo" hidden>
+        <div id="cart-resumo" class="cart-resumo"></div>
+        <h2 class="secao-t" id="t-pend">Pendências</h2>
+        <div id="cart-pend"></div>
+        <h2 class="secao-t" id="t-ir">Imposto de renda por mês</h2>
+        <div id="cart-ir"></div>
+        <h2 class="secao-t">Posição</h2>
+        <div id="cart-posicao"></div>
+        <h2 class="secao-t" id="t-opc">Opções em aberto</h2>
+        <div id="cart-opcoes"></div>
+        <h2 class="secao-t" id="t-camp">Campanhas com opções</h2>
+        <div id="cart-campanhas"></div>
+        <h2 class="secao-t">Lançamentos</h2>
+        <div id="cart-lanc"></div>
+        <details class="dobra">
+          <summary>Resultados realizados</summary>
+          <div class="conteudo" id="cart-extrato"></div>
+        </details>
+        <details class="dobra">
+          <summary>Como o cálculo funciona</summary>
+          <div class="conteudo" id="cart-regras"></div>
+        </details>
+      </div>
+    </div>
+
+    <div class="grade">
+      <div class="bloco"><span class="fase">F6</span><h2>Importar nota da Rico</h2><p>Upload do PDF, conferência em 3 passos e gravação das operações.</p></div>
+    </div>
+  </section>
+
+  <section class="modulo" id="m-rendimentos" data-rota="rendimentos" hidden>
+    <p class="pergunta">Rendimentos</p>
+    <h1>Quanto recebi por mês, e de quê?</h1>
+    <p class="sub">Dividendos, JCP, rendimentos de FII e aluguel por mês e por tipo, pelo que foi pago ou anunciado. Valores estimados ficam numa tela separada e nunca se somam aos confirmados.</p>
+
+    <div id="rendimentos">
+      <div class="cmp-barra" role="toolbar" aria-label="Rendimentos">
+        <button class="btn prim" type="button" id="rd-novo-prov">+ Provento</button>
+        <button class="btn" type="button" id="rd-novo-alug">+ Aluguel</button>
+        <span class="sep"></span>
+        <button class="btn" type="button" id="rd-exemplo">Carregar exemplo</button>
+      </div>
+      <p id="rd-status" class="status" role="status" aria-live="polite"></p>
+      <div id="rd-backup" class="aviso" role="status" hidden></div>
+      <div id="rd-banner" class="faixa exemplo" hidden></div>
+      <div id="rd-form" class="painel-cen" hidden></div>
+
+      <div id="rd-vazio" class="vazio" hidden>
+        <p><strong>Nenhum rendimento lançado.</strong> Lance os proventos pagos ou anunciados pela empresa e a remuneração do aluguel de ações. Ou veja como funciona com o exemplo (dados fictícios, não se misturam aos seus).</p>
+        <div class="acoes"><button class="btn prim" type="button" id="rd-vazio-prov">Lançar provento</button><button class="btn" type="button" id="rd-vazio-exemplo">Carregar exemplo</button></div>
+      </div>
+
+      <div id="rd-corpo" hidden>
+        <div class="acoes rd-visao" role="group" aria-label="O que ver">
+          <button class="btn prim" type="button" id="rd-ver-conf" aria-pressed="true">Confirmados</button>
+          <button class="btn" type="button" id="rd-ver-est" aria-pressed="false">Estimados</button>
+        </div>
+        <div id="rd-conf">
+          <div id="rd-resumo" class="cart-resumo"></div>
+          <div id="rd-alertas" class="rd-alertas"></div>
+          <h2 class="secao-t">Rendimentos por mês</h2>
+          <div id="rd-meses"></div>
+          <h2 class="secao-t">Proventos pagos e anunciados</h2>
+          <div id="rd-prov"></div>
+          <h2 class="secao-t">Aluguel de ações</h2>
+          <div id="rd-alug"></div>
+          <details class="dobra">
+            <summary>Como o cálculo funciona</summary>
+            <div class="conteudo" id="rd-regras"></div>
+          </details>
+        </div>
+        <div id="rd-est" hidden>
+          <p class="faixa rd-faixa-est"><span class="rotulo-est">Estimado</span> Projeção pelo histórico que você lançou. Não é anúncio da empresa e não entra em nenhum total de Confirmados.</p>
+          <div id="rd-est-corpo"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="modulo" id="m-mercado" data-rota="mercado" hidden>
+    <p class="pergunta">Mercado</p>
+    <h1>O que mudou nos juros, na inflação e nos setores que eu acompanho?</h1>
+    <p class="sub">Indicadores oficiais abaixo. O radar diário por setor, com os três especialistas, entra na F7.</p>
+    <h2 class="secao-t">Indicadores</h2>
+    <div class="tabela-wrap"><table><thead><tr><th>Indicador</th><th class="v a-dir">Valor</th><th>Referência</th><th>Fonte</th></tr></thead><tbody data-tabela-mercado="selic,selicOver,cdi,ipca,tr,focusIpca12m,focusIpca,focusIpcaProx,focusSelic,focusSelicProx"></tbody></table></div>
+    <div class="grade">
+      <div class="bloco"><span class="fase">F7</span><h2>Radar do dia</h2><p>Notícias por setor com rótulo FATO / REPORTADO / BOATO, horário e fonte de cada item.</p></div>
+      <div class="bloco"><span class="fase">F7</span><h2>Histórico de boletins</h2><p>Execuções anteriores do radar, da mais recente para a mais antiga.</p></div>
+    </div>
+  </section>
+</div></main>
+
+<footer class="prov gutter" aria-label="Proveniência dos dados"><div class="wrap" id="rodape"></div></footer>
+<nav class="abas base" aria-label="Módulos"></nav>
+
+<div id="painel-dados" class="painel" hidden role="dialog" aria-modal="true" aria-labelledby="t-dados">
+  <div class="caixa">
+    <div class="cab-painel"><h2 id="t-dados">Dados e backup</h2><button id="fechar-dados" class="btn" type="button">Fechar</button></div>
+    <div class="linha"><span>Ambiente</span><span id="d-amb"></span></div>
+    <div class="linha"><span>Onde os dados ficam</span><span id="d-onde"></span></div>
+    <div class="linha"><span>Último backup</span><span id="d-backup"></span></div>
+    <p class="explica" id="d-explica"></p>
+    <section class="sec-painel" aria-labelledby="t-cofre">
+      <h3 id="t-cofre">Senha do site</h3>
+      <p class="explica" id="cofre-estado"></p>
+      <div id="cofre-criar" class="campos-senha" hidden>
+        <label for="cofre-nova">Nova senha</label>
+        <input id="cofre-nova" type="password" autocomplete="new-password" minlength="12">
+        <label for="cofre-nova2">Repita a senha</label>
+        <input id="cofre-nova2" type="password" autocomplete="new-password" minlength="12">
+        <p class="explica">Os dados passam a ficar cifrados neste navegador e o site pede a senha ao abrir e depois de 15 minutos parado. Os backups saem protegidos com a mesma senha. Esquecer a senha significa perder os dados: guarde-a num gerenciador de senhas. Use uma frase de 4 ou 5 palavras (mínimo de 12 caracteres).</p>
+        <div class="acoes"><button id="btn-cofre-criar" class="btn prim" type="button">Proteger com senha</button></div>
+      </div>
+      <div id="cofre-gerir" hidden>
+        <details class="senha-bk">
+          <summary>Trocar a senha</summary>
+          <div class="campos-senha">
+            <label for="cofre-atual">Senha atual</label>
+            <input id="cofre-atual" type="password" autocomplete="current-password">
+            <label for="cofre-troca">Nova senha</label>
+            <input id="cofre-troca" type="password" autocomplete="new-password" minlength="12">
+            <label for="cofre-troca2">Repita a nova senha</label>
+            <input id="cofre-troca2" type="password" autocomplete="new-password" minlength="12">
+            <div class="acoes"><button id="btn-cofre-trocar" class="btn prim" type="button">Trocar a senha</button></div>
+          </div>
+        </details>
+        <details class="senha-bk">
+          <summary>Remover a senha</summary>
+          <div class="campos-senha">
+            <p class="explica">Os dados voltam a ficar sem cifra neste navegador. Não recomendado.</p>
+            <label for="cofre-rem">Senha atual</label>
+            <input id="cofre-rem" type="password" autocomplete="current-password">
+            <div class="acoes"><button id="btn-cofre-remover" class="btn perigo" type="button">Remover a senha</button></div>
+          </div>
+        </details>
+      </div>
+    </section>
+    <section class="sec-painel" aria-labelledby="t-reg">
+      <h3 id="t-reg">Atividade</h3>
+      <p class="explica" id="reg-resumo"></p>
+      <ol class="reg-lista" id="reg-lista"></ol>
+      <div class="acoes"><button id="btn-reg-exportar" class="btn" type="button">Exportar registro</button></div>
+    </section>
+    <section class="sec-painel" id="q-box" aria-labelledby="t-q" hidden>
+      <h3 id="t-q">Área separada</h3>
+      <p class="explica" id="q-resumo"></p>
+      <p class="explica">Aqui ficam dados que não puderam ser abertos ou que você descartou. Eles não entram no backup comum: baixe uma cópia para guardar.</p>
+      <div class="acoes"><button id="btn-q-baixar" class="btn" type="button">Baixar cópia</button></div>
+      <details class="senha-bk">
+        <summary>Apagar a área separada</summary>
+        <div class="campos-senha">
+          <label for="q-conf">Para apagar, digite APAGAR</label>
+          <input id="q-conf" type="text" autocomplete="off">
+          <div class="acoes"><button id="btn-q-apagar" class="btn perigo" type="button">Apagar a área separada</button></div>
+        </div>
+      </details>
+    </section>
+    <h3 class="t-backup">Backup</h3>
+    <p class="explica" id="bk-cofre-nota" hidden>Com a senha do site ativa, o backup sai protegido com ela automaticamente.</p>
+    <details class="senha-bk" id="bk-protecao">
+      <summary>Proteger o backup com senha (opcional)</summary>
+      <div class="campos-senha">
+        <label for="bk-senha">Senha</label>
+        <input id="bk-senha" type="password" autocomplete="new-password" minlength="12">
+        <label for="bk-senha2">Repita a senha</label>
+        <input id="bk-senha2" type="password" autocomplete="new-password" minlength="12">
+        <p class="explica">Com senha, o arquivo sai cifrado (AES-GCM) e só abre com ela. Não há como recuperar uma senha esquecida: nem o site nem o Claude conseguem abrir o arquivo. Mínimo de 12 caracteres, sem sequências, repetições ou palavras óbvias.</p>
+      </div>
+    </details>
+    <div class="acoes">
+      <button id="btn-exportar" class="btn prim" type="button">Exportar backup</button>
+      <label class="btn" for="arq-importar">Importar backup</label>
+      <input id="arq-importar" class="sr" type="file" accept="application/json,.json">
+    </div>
+    <div id="pede-senha" class="confirma" hidden>
+      <div id="pede-senha-txt">Este backup está protegido por senha.</div>
+      <div class="campos-senha">
+        <label for="bk-senha-imp">Senha do backup</label>
+        <input id="bk-senha-imp" type="password" autocomplete="current-password">
+      </div>
+      <div class="acoes"><button id="btn-decifrar" class="btn prim" type="button">Abrir backup</button><button id="btn-cancelar-senha" class="btn" type="button">Cancelar</button></div>
+    </div>
+    <div id="confirma" class="confirma" hidden>
+      <div id="confirma-txt"></div>
+      <div class="acoes"><button id="btn-restaurar" class="btn prim" type="button">Substituir meus dados</button><button id="btn-cancelar" class="btn" type="button">Cancelar</button></div>
+    </div>
+    <div class="acoes" id="desfazer-box" hidden><button id="btn-desfazer" class="btn" type="button">Desfazer importação</button></div>
+    <div id="d-msg" class="msg" role="status"></div>
+  </div>
+</div>
+
+<div id="cofre-tela" class="cofre-tela" hidden role="dialog" aria-modal="true" aria-labelledby="cofre-t">
+  <form class="cofre-caixa" id="cofre-form" novalidate>
+    <div class="cofre-cab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><h2 id="cofre-t">Controle Financeiro protegido</h2></div>
+    <div class="cofre-corpo">
+    <p class="explica">Digite a senha do site para abrir seus dados.</p>
+    <div class="campos-senha">
+      <label for="cofre-senha">Senha</label>
+      <input id="cofre-senha" type="password" autocomplete="current-password">
+    </div>
+    <div class="acoes"><button id="cofre-entrar" class="btn prim" type="submit">Desbloquear</button></div>
+    <p id="cofre-msg" class="msg" role="status"></p>
+    <details class="senha-bk">
+      <summary>Esqueci a senha</summary>
+      <div class="campos-senha">
+        <p class="explica">Sem a senha não há como abrir os dados: nem o site nem o Claude conseguem. Você pode apagar os dados deste navegador e depois importar um backup (ele pede a senha que estava valendo quando foi feito).</p>
+        <label for="cofre-apagar-conf">Para apagar, digite APAGAR</label>
+        <input id="cofre-apagar-conf" type="text" autocomplete="off">
+        <div class="acoes"><button id="cofre-apagar" class="btn perigo" type="button">Apagar os dados deste navegador</button></div>
+      </div>
+    </details>
+    </div>
+  </form>
+</div>
+
+<script src="js/dados.js"></script>
+<script src="js/motor-renda-fixa.js"></script>
+<script src="js/motor-carteira.js"></script>
+<script src="js/app.js"></script>
+<script src="js/comparador.js"></script>
+<script src="js/carteira.js"></script>
+<script src="js/rendimentos.js"></script>
+</body></html>

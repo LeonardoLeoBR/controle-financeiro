@@ -1,0 +1,260 @@
+{
+ "versao": "rico-1",
+ "provisorio": false,
+ "descricao": "Produtos reais da calculadora da Rico (print enviado pelo Leo em 30/10/2026): CDB prefixado do Banco XP, R$ 1.000. A liquidez não aparece no print e ficou em branco.",
+ "metodo": "Conferido de duas formas: (1) cálculo manual independente em Python, contando os dias úteis um a um no calendário ANBIMA; (2) contra a calculadora da Rico. Os dias úteis batem exatamente com os implícitos na Rico (1.501 e 1.250). A Rico corta os centavos em vez de arredondar, por isso pode aparecer até R$ 0,02 de diferença em relação a ela.",
+ "cenarios": [
+  {
+   "cenario": {
+    "id": "referencia-2032",
+    "nome": "Referência Rico — CDB XP out/2032 (2.190 dias)",
+    "valor": 1000,
+    "aporteMensal": null,
+    "dataInicio": "2026-10-30",
+    "prazoDias": 2190,
+    "premissas": {},
+    "duEditado": null,
+    "aliqIREditada": null,
+    "mercadoFixo": {
+     "coletadoEm": "2026-10-30T03:10:00.000Z",
+     "origem": "retrato fixo coletado por Claude em 30/10/2026 00:10 (BCB SGS via WebFetch; Focus e séries 1178/226 via navegador)",
+     "series": {
+      "selic": {
+       "nome": "Selic meta",
+       "valor": 13.75,
+       "data": "2026-10-30",
+       "unidade": "% a.a.",
+       "fonte": "BCB SGS 432"
+      },
+      "selicOver": {
+       "nome": "Selic over (base 252)",
+       "valor": 13.65,
+       "data": "2026-10-29",
+       "unidade": "% a.a.",
+       "fonte": "BCB SGS 1178"
+      },
+      "cdi": {
+       "nome": "CDI anualizado (base 252)",
+       "valor": 13.65,
+       "data": "2026-10-28",
+       "unidade": "% a.a.",
+       "fonte": "BCB SGS 4389"
+      },
+      "ipca": {
+       "nome": "IPCA do mês",
+       "valor": 0.82,
+       "data": "2026-09-01",
+       "unidade": "% a.m.",
+       "fonte": "BCB SGS 433"
+      },
+      "tr": {
+       "nome": "TR (período mensal iniciado na data)",
+       "valor": 0.1692,
+       "data": "2026-10-28",
+       "unidade": "% a.m.",
+       "fonte": "BCB SGS 226"
+      },
+      "focusIpca12m": {
+       "nome": "IPCA esperado 12 meses à frente (Focus, mediana)",
+       "valor": 4.5336,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      },
+      "focusIpca": {
+       "nome": "IPCA esperado (Focus, mediana) 2026",
+       "valor": 5.1891,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      },
+      "focusIpcaProx": {
+       "nome": "IPCA esperado (Focus, mediana) 2027",
+       "valor": 4.3368,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      },
+      "focusSelic": {
+       "nome": "Selic esperada fim de ano (Focus, mediana) 2026",
+       "valor": 13.25,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      },
+      "focusSelicProx": {
+       "nome": "Selic esperada fim de ano (Focus, mediana) 2027",
+       "valor": 11.75,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      }
+     }
+    },
+    "produtos": [
+     {
+      "nome": "CDB Banco XP out/2032",
+      "tipo": "CDB",
+      "indexador": "PRE",
+      "emissor": "Banco XP S.A.",
+      "liquidez": "",
+      "taxaAA": 15.35
+     }
+    ]
+   },
+   "memoria": "30/10/2026 → 28/10/2032: 1.564 dias de semana − 63 feriados ANBIMA = 1.501 dias úteis. Fator 1,1535^(1501/252) = 2,340984163. Rendimento bruto R$ 1.340,98; IR 15% (mais de 720 dias) R$ 201,15; final R$ 2.139,84.",
+   "esperado": [
+    {
+     "produto": 0,
+     "rendBruto": 1340.98,
+     "iof": 0,
+     "ir": 201.15,
+     "final": 2139.84
+    }
+   ],
+   "externo": {
+    "fonte": "Calculadora da Rico (print de 30/10/2026)",
+    "tolerancia": 0.02,
+    "valores": [
+     {
+      "produto": 0,
+      "rendBruto": 1340.98,
+      "ir": 201.14,
+      "final": 2139.83
+     }
+    ]
+   }
+  },
+  {
+   "cenario": {
+    "id": "referencia-2031",
+    "nome": "Referência Rico — CDB XP out/2031 (1.825 dias)",
+    "valor": 1000,
+    "aporteMensal": null,
+    "dataInicio": "2026-10-30",
+    "prazoDias": 1825,
+    "premissas": {},
+    "duEditado": null,
+    "aliqIREditada": null,
+    "mercadoFixo": {
+     "coletadoEm": "2026-10-30T03:10:00.000Z",
+     "origem": "retrato fixo coletado por Claude em 30/10/2026 00:10 (BCB SGS via WebFetch; Focus e séries 1178/226 via navegador)",
+     "series": {
+      "selic": {
+       "nome": "Selic meta",
+       "valor": 13.75,
+       "data": "2026-10-30",
+       "unidade": "% a.a.",
+       "fonte": "BCB SGS 432"
+      },
+      "selicOver": {
+       "nome": "Selic over (base 252)",
+       "valor": 13.65,
+       "data": "2026-10-29",
+       "unidade": "% a.a.",
+       "fonte": "BCB SGS 1178"
+      },
+      "cdi": {
+       "nome": "CDI anualizado (base 252)",
+       "valor": 13.65,
+       "data": "2026-10-28",
+       "unidade": "% a.a.",
+       "fonte": "BCB SGS 4389"
+      },
+      "ipca": {
+       "nome": "IPCA do mês",
+       "valor": 0.82,
+       "data": "2026-09-01",
+       "unidade": "% a.m.",
+       "fonte": "BCB SGS 433"
+      },
+      "tr": {
+       "nome": "TR (período mensal iniciado na data)",
+       "valor": 0.1692,
+       "data": "2026-10-28",
+       "unidade": "% a.m.",
+       "fonte": "BCB SGS 226"
+      },
+      "focusIpca12m": {
+       "nome": "IPCA esperado 12 meses à frente (Focus, mediana)",
+       "valor": 4.5336,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      },
+      "focusIpca": {
+       "nome": "IPCA esperado (Focus, mediana) 2026",
+       "valor": 5.1891,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      },
+      "focusIpcaProx": {
+       "nome": "IPCA esperado (Focus, mediana) 2027",
+       "valor": 4.3368,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      },
+      "focusSelic": {
+       "nome": "Selic esperada fim de ano (Focus, mediana) 2026",
+       "valor": 13.25,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      },
+      "focusSelicProx": {
+       "nome": "Selic esperada fim de ano (Focus, mediana) 2027",
+       "valor": 11.75,
+       "data": "2026-10-23",
+       "unidade": "% a.a.",
+       "fonte": "BCB Focus (Olinda)",
+       "projecao": true
+      }
+     }
+    },
+    "produtos": [
+     {
+      "nome": "CDB Banco XP out/2031",
+      "tipo": "CDB",
+      "indexador": "PRE",
+      "emissor": "Banco XP S.A.",
+      "liquidez": "",
+      "taxaAA": 15.3
+     }
+    ]
+   },
+   "memoria": "30/10/2026 → 29/10/2031: 1.303 dias de semana − 53 feriados ANBIMA = 1.250 dias úteis. Fator 1,1530^(1250/252) = 2,026249835. Rendimento bruto R$ 1.026,25; IR 15% R$ 153,94; final R$ 1.872,31.",
+   "esperado": [
+    {
+     "produto": 0,
+     "rendBruto": 1026.25,
+     "iof": 0,
+     "ir": 153.94,
+     "final": 1872.31
+    }
+   ],
+   "externo": {
+    "fonte": "Calculadora da Rico (print de 30/10/2026)",
+    "tolerancia": 0.02,
+    "valores": [
+     {
+      "produto": 0,
+      "rendBruto": 1026.24,
+      "ir": 153.93,
+      "final": 1872.3
+     }
+    ]
+   }
+  }
+ ]
+}

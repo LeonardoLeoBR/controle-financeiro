@@ -1,0 +1,370 @@
+{
+ "aviso": "Carteira fictícia para demonstração (modo exemplo e vídeo da F9). Ativos e opções inventados; nada é gravado. Datas fixas: a tela usa a data de referência abaixo como 'hoje'.",
+ "lancamentos": [
+  {
+   "tipo": "SALDO",
+   "data": "2026-09-01",
+   "ativo": "EXMA3",
+   "qtd": 400,
+   "pm": 31.2,
+   "id": "ex01",
+   "seq": 1,
+   "origem": "exemplo"
+  },
+  {
+   "tipo": "SALDO",
+   "data": "2026-09-01",
+   "ativo": "EXMB4",
+   "qtd": 1000,
+   "pm": 8.45,
+   "id": "ex02",
+   "seq": 2,
+   "origem": "exemplo"
+  },
+  {
+   "tipo": "SALDO",
+   "data": "2026-09-01",
+   "ativo": "EXFI11",
+   "qtd": 50,
+   "pm": 96.8,
+   "id": "ex03",
+   "seq": 3,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-09-15",
+   "ativo": "EXMA3",
+   "lado": "C",
+   "qtd": 100,
+   "preco": 29.9,
+   "custos": 0.95,
+   "corretora": "Rico",
+   "id": "ex04",
+   "seq": 4,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-09-22",
+   "ativo": "EXMC3",
+   "lado": "C",
+   "qtd": 300,
+   "preco": 14.1,
+   "custos": 1.27,
+   "corretora": "Rico",
+   "id": "ex05",
+   "seq": 5,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-10-02",
+   "ativo": "EXMB4",
+   "lado": "C",
+   "qtd": 200,
+   "preco": 9.1,
+   "custos": 0.55,
+   "corretora": "Rico",
+   "id": "ex06",
+   "seq": 6,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-10-02",
+   "ativo": "EXMB4",
+   "lado": "V",
+   "qtd": 200,
+   "preco": 9.32,
+   "custos": 0.56,
+   "corretora": "Rico",
+   "id": "ex07",
+   "seq": 7,
+   "origem": "exemplo"
+  },
+  {
+   "tipo": "DESDOBRAMENTO",
+   "data": "2026-10-13",
+   "ativo": "EXMC3",
+   "de": 1,
+   "para": 2,
+   "id": "ex08",
+   "seq": 8,
+   "origem": "exemplo"
+  },
+  {
+   "tipo": "BONIFICACAO",
+   "data": "2026-10-20",
+   "ativo": "EXMB4",
+   "de": 10,
+   "para": 1,
+   "custoUnit": null,
+   "id": "ex09",
+   "seq": 9,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-10-27",
+   "ativo": "EXMA3",
+   "lado": "V",
+   "qtd": 150,
+   "preco": 33.4,
+   "custos": 1.5,
+   "corretora": "Rico",
+   "id": "ex10",
+   "seq": 10,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-10-29",
+   "ativo": "EXNV11",
+   "lado": "C",
+   "qtd": 20,
+   "preco": 101.5,
+   "custos": 0.61,
+   "corretora": "Rico",
+   "id": "ex11",
+   "seq": 11,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-09-08",
+   "ativo": "EXMDU180",
+   "lado": "V",
+   "qtd": 200,
+   "preco": 0.45,
+   "custos": 0.4,
+   "corretora": "Rico",
+   "id": "ex12",
+   "seq": 12,
+   "origem": "exemplo"
+  },
+  {
+   "tipo": "EXERCICIO",
+   "data": "2026-09-18",
+   "ativo": "EXMDU180",
+   "subjacente": "EXMD3",
+   "tipoOpcao": "PUT",
+   "strike": 18,
+   "custos": 0,
+   "id": "ex13",
+   "seq": 13,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-09-21",
+   "ativo": "EXMDJ190",
+   "lado": "V",
+   "qtd": 200,
+   "preco": 0.3,
+   "custos": 0.3,
+   "corretora": "Rico",
+   "id": "ex14",
+   "seq": 14,
+   "origem": "exemplo"
+  },
+  {
+   "tipo": "VENCIMENTO",
+   "data": "2026-10-16",
+   "ativo": "EXMDJ190",
+   "id": "ex15",
+   "seq": 15,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-10-19",
+   "ativo": "EXMDK195",
+   "lado": "V",
+   "qtd": 200,
+   "preco": 0.35,
+   "custos": 0.3,
+   "corretora": "Rico",
+   "id": "ex16",
+   "seq": 16,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-10-26",
+   "ativo": "EXMCW65",
+   "lado": "V",
+   "qtd": 300,
+   "preco": 0.12,
+   "custos": 0.2,
+   "corretora": "Rico",
+   "id": "ex17",
+   "seq": 17,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-10-08",
+   "ativo": "EXMAJ340",
+   "lado": "C",
+   "qtd": 500,
+   "preco": 0.4,
+   "custos": 0.3,
+   "corretora": "Rico",
+   "id": "ex18",
+   "seq": 18,
+   "origem": "exemplo"
+  },
+  {
+   "data": "2026-10-08",
+   "ativo": "EXMAJ340",
+   "lado": "V",
+   "qtd": 500,
+   "preco": 0.48,
+   "custos": 0.3,
+   "corretora": "Rico",
+   "id": "ex19",
+   "seq": 19,
+   "origem": "exemplo"
+  }
+ ],
+ "classes": {
+  "EXFI11": "FII"
+ },
+ "cotacoes": {
+  "EXMA3": {
+   "valor": 34.05,
+   "fonte": "exemplo (fictício)",
+   "em": "2026-10-30T17:05"
+  },
+  "EXMB4": {
+   "valor": 9.18,
+   "fonte": "exemplo (fictício)",
+   "em": "2026-10-30T17:05"
+  },
+  "EXFI11": {
+   "valor": 99.4,
+   "fonte": "exemplo (fictício)",
+   "em": "2026-10-23T17:00"
+  },
+  "EXMD3": {
+   "valor": 18.4,
+   "fonte": "exemplo (fictício)",
+   "em": "2026-10-30T17:05"
+  }
+ },
+ "dataReferencia": "2026-10-30",
+ "opcoes": {
+  "EXMDU180": {
+   "subjacente": "EXMD3",
+   "tipo": "PUT",
+   "strike": 18,
+   "vencimento": "2026-09-18"
+  },
+  "EXMDJ190": {
+   "subjacente": "EXMD3",
+   "tipo": "CALL",
+   "strike": 19,
+   "vencimento": "2026-10-16"
+  },
+  "EXMDK195": {
+   "subjacente": "EXMD3",
+   "tipo": "CALL",
+   "strike": 19.5,
+   "vencimento": "2026-11-19"
+  },
+  "EXMCW65": {
+   "subjacente": "EXMC3",
+   "tipo": "PUT",
+   "strike": 6.5,
+   "vencimento": "2026-11-19"
+  },
+  "EXMAJ340": {
+   "subjacente": "EXMA3",
+   "tipo": "CALL",
+   "strike": 34,
+   "vencimento": "2026-10-16"
+  }
+ },
+ "proventos": [
+  {
+   "id": "exr01",
+   "tipo": "DIVIDENDO",
+   "ativo": "EXMA3",
+   "dataCom": "2026-03-13",
+   "pagamento": "2026-04-15",
+   "qtd": 400,
+   "valorUnit": 0.85,
+   "origem": "COMPANHIA",
+   "fonte": "aviso fictício"
+  },
+  {
+   "id": "exr02",
+   "tipo": "JCP",
+   "ativo": "EXMA3",
+   "dataCom": "2026-08-14",
+   "pagamento": "2026-09-30",
+   "qtd": 400,
+   "valorUnit": 0.6,
+   "origem": "COMPANHIA",
+   "fonte": "aviso fictício"
+  },
+  {
+   "id": "exr03",
+   "tipo": "DIVIDENDO",
+   "ativo": "EXMB4",
+   "dataCom": "2026-09-11",
+   "pagamento": "2026-09-25",
+   "qtd": 1000,
+   "valorUnit": 0.21,
+   "origem": "REEMBOLSO",
+   "fonte": "relatório fictício"
+  },
+  {
+   "id": "exr04",
+   "tipo": "JCP",
+   "ativo": "EXMB4",
+   "dataCom": "2026-09-11",
+   "pagamento": "2026-09-25",
+   "qtd": 1000,
+   "valorUnit": 0.1,
+   "origem": "REEMBOLSO",
+   "fonte": "relatório fictício"
+  },
+  {
+   "id": "exr05",
+   "tipo": "RENDIMENTO_FII",
+   "ativo": "EXFI11",
+   "dataCom": "2026-09-30",
+   "pagamento": "2026-10-14",
+   "qtd": 50,
+   "valorUnit": 0.82,
+   "origem": "COMPANHIA"
+  },
+  {
+   "id": "exr06",
+   "tipo": "ALUGUEL",
+   "ativo": "EXMB4",
+   "inicio": "2026-08-20",
+   "pagamento": "2026-10-19",
+   "bruto": 42.8
+  },
+  {
+   "id": "exr07",
+   "tipo": "ALUGUEL",
+   "ativo": "EXMA3",
+   "pagamento": "2026-10-22",
+   "bruto": 18.4
+  },
+  {
+   "id": "exr08",
+   "tipo": "DIVIDENDO",
+   "ativo": "EXMA3",
+   "dataCom": "2026-10-23",
+   "pagamento": "2026-11-16",
+   "qtd": 350,
+   "valorUnit": 0.5,
+   "origem": "COMPANHIA",
+   "fonte": "aviso fictício"
+  },
+  {
+   "id": "exr09",
+   "tipo": "JCP",
+   "ativo": "EXMD3",
+   "dataCom": "2026-10-28",
+   "qtd": 200,
+   "valorUnit": 0.3,
+   "origem": "COMPANHIA",
+   "fonte": "aviso fictício"
+  }
+ ]
+}

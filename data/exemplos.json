@@ -1,0 +1,361 @@
+{
+ "aviso": "Dados fictícios para demonstração (modo exemplo e vídeo da F9). Emissores e taxas inventados; mercado fixo de 30/10/2026.",
+ "cenarios": [
+  {
+   "id": "ex-reserva",
+   "nome": "Reserva de emergência — 12 meses",
+   "valor": 20000,
+   "aporteMensal": null,
+   "dataInicio": "2026-11-03",
+   "prazoDias": 365,
+   "premissas": {},
+   "duEditado": null,
+   "aliqIREditada": null,
+   "mercadoFixo": {
+    "coletadoEm": "2026-10-30T03:10:00.000Z",
+    "origem": "retrato fixo coletado por Claude em 30/10/2026 00:10 (BCB SGS via WebFetch; Focus e séries 1178/226 via navegador)",
+    "series": {
+     "selic": {
+      "nome": "Selic meta",
+      "valor": 13.75,
+      "data": "2026-10-30",
+      "unidade": "% a.a.",
+      "fonte": "BCB SGS 432"
+     },
+     "selicOver": {
+      "nome": "Selic over (base 252)",
+      "valor": 13.65,
+      "data": "2026-10-29",
+      "unidade": "% a.a.",
+      "fonte": "BCB SGS 1178"
+     },
+     "cdi": {
+      "nome": "CDI anualizado (base 252)",
+      "valor": 13.65,
+      "data": "2026-10-28",
+      "unidade": "% a.a.",
+      "fonte": "BCB SGS 4389"
+     },
+     "ipca": {
+      "nome": "IPCA do mês",
+      "valor": 0.82,
+      "data": "2026-09-01",
+      "unidade": "% a.m.",
+      "fonte": "BCB SGS 433"
+     },
+     "tr": {
+      "nome": "TR (período mensal iniciado na data)",
+      "valor": 0.1692,
+      "data": "2026-10-28",
+      "unidade": "% a.m.",
+      "fonte": "BCB SGS 226"
+     },
+     "focusIpca12m": {
+      "nome": "IPCA esperado 12 meses à frente (Focus, mediana)",
+      "valor": 4.5336,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusIpca": {
+      "nome": "IPCA esperado (Focus, mediana) 2026",
+      "valor": 5.1891,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusIpcaProx": {
+      "nome": "IPCA esperado (Focus, mediana) 2027",
+      "valor": 4.3368,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusSelic": {
+      "nome": "Selic esperada fim de ano (Focus, mediana) 2026",
+      "valor": 13.25,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusSelicProx": {
+      "nome": "Selic esperada fim de ano (Focus, mediana) 2027",
+      "valor": 11.75,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     }
+    }
+   },
+   "produtos": [
+    {
+     "nome": "CDB liquidez diária",
+     "tipo": "CDB",
+     "indexador": "CDI",
+     "emissor": "Banco Exemplo Alfa",
+     "liquidez": "diaria",
+     "pctCDI": 100
+    },
+    {
+     "nome": "LCI 1 ano",
+     "tipo": "LCI",
+     "indexador": "CDI",
+     "emissor": "Banco Exemplo Beta",
+     "liquidez": "vencimento",
+     "pctCDI": 89
+    },
+    {
+     "nome": "Tesouro Selic",
+     "tipo": "TESOURO",
+     "indexador": "SELIC",
+     "emissor": "",
+     "liquidez": "",
+     "spreadAA": 0.05,
+     "custodiaAA": 0.2
+    }
+   ]
+  },
+  {
+   "id": "ex-preposs",
+   "nome": "Pré × pós — 2 anos",
+   "valor": 50000,
+   "aporteMensal": null,
+   "dataInicio": "2026-11-03",
+   "prazoDias": 730,
+   "premissas": {},
+   "duEditado": null,
+   "aliqIREditada": null,
+   "mercadoFixo": {
+    "coletadoEm": "2026-10-30T03:10:00.000Z",
+    "origem": "retrato fixo coletado por Claude em 30/10/2026 00:10 (BCB SGS via WebFetch; Focus e séries 1178/226 via navegador)",
+    "series": {
+     "selic": {
+      "nome": "Selic meta",
+      "valor": 13.75,
+      "data": "2026-10-30",
+      "unidade": "% a.a.",
+      "fonte": "BCB SGS 432"
+     },
+     "selicOver": {
+      "nome": "Selic over (base 252)",
+      "valor": 13.65,
+      "data": "2026-10-29",
+      "unidade": "% a.a.",
+      "fonte": "BCB SGS 1178"
+     },
+     "cdi": {
+      "nome": "CDI anualizado (base 252)",
+      "valor": 13.65,
+      "data": "2026-10-28",
+      "unidade": "% a.a.",
+      "fonte": "BCB SGS 4389"
+     },
+     "ipca": {
+      "nome": "IPCA do mês",
+      "valor": 0.82,
+      "data": "2026-09-01",
+      "unidade": "% a.m.",
+      "fonte": "BCB SGS 433"
+     },
+     "tr": {
+      "nome": "TR (período mensal iniciado na data)",
+      "valor": 0.1692,
+      "data": "2026-10-28",
+      "unidade": "% a.m.",
+      "fonte": "BCB SGS 226"
+     },
+     "focusIpca12m": {
+      "nome": "IPCA esperado 12 meses à frente (Focus, mediana)",
+      "valor": 4.5336,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusIpca": {
+      "nome": "IPCA esperado (Focus, mediana) 2026",
+      "valor": 5.1891,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusIpcaProx": {
+      "nome": "IPCA esperado (Focus, mediana) 2027",
+      "valor": 4.3368,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusSelic": {
+      "nome": "Selic esperada fim de ano (Focus, mediana) 2026",
+      "valor": 13.25,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusSelicProx": {
+      "nome": "Selic esperada fim de ano (Focus, mediana) 2027",
+      "valor": 11.75,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     }
+    }
+   },
+   "produtos": [
+    {
+     "nome": "CDB 104% CDI",
+     "tipo": "CDB",
+     "indexador": "CDI",
+     "emissor": "Banco Exemplo Gama",
+     "liquidez": "vencimento",
+     "pctCDI": 104
+    },
+    {
+     "nome": "CDB pré 13,40%",
+     "tipo": "CDB",
+     "indexador": "PRE",
+     "emissor": "Banco Exemplo Delta",
+     "liquidez": "vencimento",
+     "taxaAA": 13.4
+    },
+    {
+     "nome": "LCA 91% CDI",
+     "tipo": "LCA",
+     "indexador": "CDI",
+     "emissor": "Banco Exemplo Épsilon",
+     "liquidez": "vencimento",
+     "pctCDI": 91
+    }
+   ]
+  },
+  {
+   "id": "ex-inflacao",
+   "nome": "Proteção contra inflação — 5 anos, com aportes",
+   "valor": 30000,
+   "aporteMensal": 1000,
+   "dataInicio": "2026-11-03",
+   "prazoDias": 1826,
+   "premissas": {},
+   "duEditado": null,
+   "aliqIREditada": null,
+   "mercadoFixo": {
+    "coletadoEm": "2026-10-30T03:10:00.000Z",
+    "origem": "retrato fixo coletado por Claude em 30/10/2026 00:10 (BCB SGS via WebFetch; Focus e séries 1178/226 via navegador)",
+    "series": {
+     "selic": {
+      "nome": "Selic meta",
+      "valor": 13.75,
+      "data": "2026-10-30",
+      "unidade": "% a.a.",
+      "fonte": "BCB SGS 432"
+     },
+     "selicOver": {
+      "nome": "Selic over (base 252)",
+      "valor": 13.65,
+      "data": "2026-10-29",
+      "unidade": "% a.a.",
+      "fonte": "BCB SGS 1178"
+     },
+     "cdi": {
+      "nome": "CDI anualizado (base 252)",
+      "valor": 13.65,
+      "data": "2026-10-28",
+      "unidade": "% a.a.",
+      "fonte": "BCB SGS 4389"
+     },
+     "ipca": {
+      "nome": "IPCA do mês",
+      "valor": 0.82,
+      "data": "2026-09-01",
+      "unidade": "% a.m.",
+      "fonte": "BCB SGS 433"
+     },
+     "tr": {
+      "nome": "TR (período mensal iniciado na data)",
+      "valor": 0.1692,
+      "data": "2026-10-28",
+      "unidade": "% a.m.",
+      "fonte": "BCB SGS 226"
+     },
+     "focusIpca12m": {
+      "nome": "IPCA esperado 12 meses à frente (Focus, mediana)",
+      "valor": 4.5336,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusIpca": {
+      "nome": "IPCA esperado (Focus, mediana) 2026",
+      "valor": 5.1891,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusIpcaProx": {
+      "nome": "IPCA esperado (Focus, mediana) 2027",
+      "valor": 4.3368,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusSelic": {
+      "nome": "Selic esperada fim de ano (Focus, mediana) 2026",
+      "valor": 13.25,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     },
+     "focusSelicProx": {
+      "nome": "Selic esperada fim de ano (Focus, mediana) 2027",
+      "valor": 11.75,
+      "data": "2026-10-23",
+      "unidade": "% a.a.",
+      "fonte": "BCB Focus (Olinda)",
+      "projecao": true
+     }
+    }
+   },
+   "produtos": [
+    {
+     "nome": "Tesouro IPCA+",
+     "tipo": "TESOURO",
+     "indexador": "IPCA",
+     "emissor": "",
+     "liquidez": "",
+     "jurosRealAA": 7.1,
+     "custodiaAA": 0.2
+    },
+    {
+     "nome": "CDB IPCA+",
+     "tipo": "CDB",
+     "indexador": "IPCA",
+     "emissor": "Banco Exemplo Zeta",
+     "liquidez": "vencimento",
+     "jurosRealAA": 7.6
+    },
+    {
+     "nome": "Debênture incentivada",
+     "tipo": "DEB_INCENTIVADA",
+     "indexador": "IPCA",
+     "emissor": "Empresa Exemplo Energia S.A.",
+     "liquidez": "vencimento",
+     "jurosRealAA": 6.6
+    }
+   ]
+  }
+ ]
+}
